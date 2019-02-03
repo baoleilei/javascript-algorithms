@@ -1,3 +1,7 @@
+/**
+ * 2叉树反转
+ * @param {*} root 
+ */
 function invertTree(root) {
   if (root!== null) {
     var temp = root.left;

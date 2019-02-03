@@ -1,3 +1,4 @@
+// 单向链表反转
 var reverseList = function(head) {
   if (!head || !head.next) { return head}
   var pre = null
