@@ -12,5 +12,7 @@ function add(a, b) {
 }
 
 var addCurry = curry(add,1);
+
 // addCurry(3); //3
+
 console.log(addCurry(3))
