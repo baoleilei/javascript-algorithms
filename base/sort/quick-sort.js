@@ -1,43 +1,42 @@
-function quick_sort2(arr){
-  var _arr = arr.slice();//复制一份，以免影响之前的arr
-  return quick_sort(_arr,0,_arr.length-1);//进行排序
+//https://www.cnblogs.com/aaronjs/p/3539538.html
+function partition(items, left, right) {
+  var pivot   = items[Math.floor((right + left) / 2)],
+      i       = left,
+      j       = right;
+  while (i <= j) {
+      while (items[i] < pivot) {
+          i++;
+      }
+      while (items[j] > pivot) {
+          j--;
+      }
+      if (i <= j) {
+          swap(items, i, j);
+          i++;
+          j--;
+      }
+  }
+  return i;
 }
-function quick_sort(arr,i,j){
-  if((j-i)<=1)//如果数组长度小于1，不用排序
-  {
-    return arr;
+function swap(items, firstIndex, secondIndex){
+  var temp = items[firstIndex];
+  items[firstIndex] = items[secondIndex];
+  items[secondIndex] = temp;
+}
+function quickSort(items, left, right) {
+  var index;
+  if (items.length > 1) {
+      index = partition(items, left, right);
+      if (left < index - 1) {
+          quickSort(items, left, index - 1);
+      }
+      if (index < right) {
+          quickSort(items, index, right);
+      }
+
   }
-  var left = i;
-  var right = j;
-  var base = left;
-  var center = arr[left];
-  while(left<right){
-   //从右向左扫描是否存在比基数小的数字
-    while(left<right && arr[right]>=center){
-      right--;
-    }
-    if(left<right)
-    {
-      //将小于基数的数字放置到左侧
-      arr[left] = arr[right];
-      left++;
-    }
-   //从左向右扫描是否存在比基数大的数字
-    while(left<right && arr[left]<center){
-      left++;
-    }
-    if(left<right){
-       //将大于基数的数字放置到右侧
-      arr[right] = arr[left];
-      right--;
-    }
-  }
-  //更新基数
-  base = left;
-  arr[base] = center;
-  quick_sort(arr,i,base-1);//递归对左侧进行排序
-  quick_sort(arr,(base+1),j);//递归对右侧进行排序
-  return arr;
+  return items;
 }
 
-console.log(quick_sort2([1,232,4,4,34,5,4,4536,5,5]))
+var items = [1,232,4,4,34,5,4,4536,5,5]
+console.log(quickSort(items,0, items.length - 1))
